@@ -4,31 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>weather</title>
+    <title>Weather-app-js</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div id="container">
-        <div id="header">
-            <input id="input" type="text" spellcheck="false" placeholder="Please enter city...">
-        </div>
 
-        <div id="when-where">
-            <p id="city">Montreal</p>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter city name" spellcheck="false">
+            <button><img class="search-pic" src="./images/search.png" alt="search"></button>
+        </div>
+        <div class="error">
+            <p>Invalid city name</p>
+        </div>
+        <div class="weather"> 
+            <img src="/images/rain.png" class="weather-icon" alt="">
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">Prague</h2>
             <p id="date">31 July 1988</p>
-        </div>
-
-        <div id="now">
-            <p id="temp">28°</p>
-            <p id="feels-like">Feels like: 30°</p>
-            <p id="conditions">Sunny</p>
-            <p id="variation">Min: 25° Max: 28°</p>
+            <div class="details">
+                <div class="col">
+                    <img class="pic" src="./images/humidity.png" alt="humidity">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="pic" src="./images/wind.png" alt="wind">
+                    <div>
+                        <p class="wind">15 km/h</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    
+
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
 </body>
 </html>

@@ -1,49 +1,94 @@
-const api = {
-    endpoint: "https://api.openweathermap.org/data/2.5/",
-    key: "fdb7ebe945722163e6f4d23e9a448882"
-}
+const apiKey = "fdb7ebe945722163e6f4d23e9a448882";
+const apiUrl =
+  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-const input = document.querySelector("#input");
-input.addEventListener("keydown", enter);
-
-function enter(e) {
-    if (e.keyCode === 13) {
-      getInfo(input.value);
-    }
-  }
-
-async function getInfo (data) {
-  const res = await fetch(`${api.endpoint}weather?q=${data}&units=metric&appID=${api.key}`);
-  
-  const result = await res.json();
-  
-  showResult(result);
-}
-
-function showResult(result) {
-    let city = document.querySelector('#city');
-    city.textContent = `${result.name}, ${result.sys.country}`;
-
-    getMyDate();
-
-    let temp = document.querySelector('#temp');
-    temp.innerHTML = `${Math.round(result.main.temp) }<span>°</span>`;
-
-    let feelsLike = document.querySelector('#feels-like');
-    feelsLike.innerHTML = 'Feels like: '+ `${Math.round(result.main.feels_like)}<span>°</span>`;
-
-    let conditions = document.querySelector('#conditions');
-    conditions.textContent = `${result.weather[0].description}`;
-
-    let variation = document.querySelector('#variation');
-    variation.innerHTML = "Min: " + `${Math.round(result.main.temp_min)}<span>°</span>`+ ' Max: ' +
-    `${Math.round(result.main.temp_max)}<span>°</span>`
-}
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+const weatherIcon = document.querySelector(".weather-icon");
 
 function getMyDate() {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    const now = new Date();
-    const date = document.querySelector('#date');
-    date.innerHTML = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  const now = new Date();
+  const date = document.querySelector("#date");
+  date.innerHTML = `${days[now.getDay()]}, ${now.getDate()} ${
+    months[now.getMonth()]
+  } ${now.getFullYear()}`;
 }
+
+async function checkWeather(city) {
+  const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+  getMyDate();
+  if (response.status == 404) {
+    document.querySelector(".error").style.display = "block";
+    gsap.fromTo('.error', {
+      opacity: 0,
+      y: -10, // Начальное положение смещено вверх на 10px
+  }, {
+      opacity: 1,
+      y: 0, // Конечное положение в исходном месте
+      duration: 1.5, // Продолжительность анимации
+      repeat: -1, // Количество повторений
+      yoyo: true, // Плавное возвращение к начальному состоянию
+      ease: 'power1.inOut', // Тип анимации для плавности
+  });
+  
+    document.querySelector(".weather").style.display = "none";
+  } else {
+    const data = await response.json();
+    document.querySelector(".city").innerHTML = data.name;
+    document.querySelector(".temp").innerHTML =
+      Math.round(data.main.temp) + "°c";
+    document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+    document.querySelector(".wind").innerHTML =
+      Math.round(data.wind.speed) + " km/h";
+
+    if (data.weather[0].main == "Clouds") {
+      weatherIcon.src = "./images/clouds.png";
+    } else if (data.weather[0].main == "Clear") {
+      weatherIcon.src = "./images/clear.png";
+    } else if (data.weather[0].main == "Rain") {
+      weatherIcon.src = "./images/rain.png";
+    } else if (data.weather[0].main == "Drizzle") {
+      weatherIcon.src = "./images/drizzle.png";
+    } else if (data.weather[0].main == "<Mist>") {
+      weatherIcon.src = "./images/mist.png";
+    }
+    document.querySelector(".weather").style.display = "block";
+    document.querySelector(".error").style.display = "none";
+  }
+}
+searchBtn.addEventListener("click", () => {
+  checkWeather(searchBox.value);
+});
+
+searchBox.addEventListener("keypress", function (e) {
+  if (e.keyCode === 13) {
+    checkWeather(searchBox.value);
+  }
+});
+
+
+

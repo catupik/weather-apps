@@ -1,80 +1,150 @@
-body {
-    background-image: url('https://images.unsplash.com/photo-1587923623987-c7e4083beb23?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60');
-    background-size: cover;
-    background-repeat: no-repeat;
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap');
+
+
+*{
     margin: 0;
-    }
-    
-    
-    
-    #container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-image: linear-gradient(rgba(233, 200, 200, 0.3), rgba(0, 0, 0, 0.6));
-    min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
-    }
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
 
-    #header {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-    }
+.error{
+    display: none;
+    color: rgb(156, 11, 95);
+    text-align: left;
+}
 
-    #input {
-        background-color: rgba(142, 127, 161, 0.3);
-        border-radius: 20px;
-        border: 3px solid #CDF3A2;
-        padding: 15px;
-        font-size: 20px;
-        }
-#input:focus {
-    background-color: white;
+body {
+    background: #f0f0f0;
+    height: 100vh;
+    }
+    
+.card {
+    width: 90%;
+    max-width: 470px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    border-radius: 20px;
+    padding: 40px 35px;
+    text-align: center;
+    color: #555;
 }    
 
-#when-where {
+.search{
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-
+    margin-bottom: 20px;
+    margin-top: 15px;
+    justify-content: space-around;
 }
-#city {
-    color: white;
-    font-size: 45px;
+    
+.search input, .search button {
+    border: 2px solid #ddd;
+    color: #555;
+    padding: 5px;
+    border-radius: 20px;
+    /* transition: all 2s ease; */
+    margin: 0 5px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.search input {
+    
+    flex-grow: 1;
+    /* margin-right: 1rem; */
+}
+.search input:focus {
+    border-color: #148aae;
+    background-color: #f4f4f4;
+   /* outline: none;
+   border-color: #148aae; */
+}
+.search button{
+    /* flex: 0 0 auto; */
+    /* transition: background-color 0.3s; */
+    cursor: pointer;
+    flex-shrink: 0;
+    min-width: 60px; 
+    min-height: 60px;
+}
+
+
+.search-pic:hover {
+    transform: scale(1.5); 
+    transition: transform 0.5s ease; 
+}
+.search img {
+    width: 16px;
+    height: auto;
+    object-fit: contain;
+}
+.weather {
+    display: none;
+}
+
+.weather-icon{
+    width: 100px;
+    margin-top: 20px auto;
     
 }
 
-#date {
-    color: white;
-    font-size: 24px;
+.pic{
+    filter: invert(100%);
 }
-#now {
+
+.weather h1{
+    font-size: 80px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.weather h2{
+    font-size: 45px;
+    font-weight: 400;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+    
+.details {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin: 0;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 50px;
 }
-#temp {
-    color: white;
-    font-weight: bold;
-    font-size: 110px;
-    text-shadow: 5px 10px black;
-    margin: 0;
+.col{
+    display: flex;
+    align-items: center;
+    text-align: left;
 }
-#feels-like {
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
+.col img{
+    width: 40px;
+    margin-right: 10px;
+
 }
-#conditions {
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    font-style: italic;
-}
-#variation {
-    color: white;
-    font-size: 26px;
-    font-weight: bold;
+.humidity, .wind {
+    font-size: 28px;
+
+margin-top: -5px;}
+
+
+@media (max-width: 600px) {
+    .card {
+        padding: 15px 15px;
+    }
+    .weather h1 {
+        font-size: 60px;
+    }
+    .weather h2 {
+        font-size: 30px;
+    }
+    /* .details {
+        flex-direction: column;
+    } */
+    .col {
+        margin-top: 40px;
+        margin-bottom: 50px;
+    }
+    
 }
